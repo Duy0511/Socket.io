@@ -1,0 +1,15 @@
+{
+  "name": "chat-app-realtime",
+  "version": "1.0.0",
+  "main": "ok",
+  "author": "duy",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon --inspect ./index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1",
+    "socket.io": "^4.7.2"
+  }
+}

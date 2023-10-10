@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+  <title>Example Page</title>
+  <!-- <link rel="stylesheet" type="text/css" href="index.css"> -->
+</head>
+<body>
+  <h1>App chat siêu nhanh</h1>
+  <ul id="message">
+    
+  </ul>
+  <form action="" class="chat-form">
+    <input type="test" name="input-text">
+    <button type="submit" name="send-chat">Gửi</button>
+  </form>
+</body>
+</html>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+  const form = document.querySelector('.chat-form');
+  const messages = document.querySelector('#message')
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    // để loại bỏ hành vi mặc định tránh tải lại trang
+    const form = event.target
+    // phải xác định lúc nào dùng target lúc nào dùng related
+    
+    const inputField = form.querySelector('input[name="input-text"]');
+    const text = inputField.value
+    socket.emit('send-chat', { // socket.emit là của người gửi , socket.on là của người nhận 
+      text 
+    });
+    inputField.value = ''
+    // muốn xem nó gửi chưa thì vào WS và ấn vào message
+    // nó không bắn lên url vì nó không thực hiện hành vi mặc định của form.post là bắn lên url
+    socket.on('user',(message)=>{
+      const itemMes = document.createElement('li')
+      itemMes.innerText = message.text
+      console.log(message.text)
+      messages.appendChild(itemMes)
+    })
+  })
+</script>
